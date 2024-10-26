@@ -1,4 +1,4 @@
-Tennis Data Rebase is a fun project that allows the user to contrast and compare the match-play data of their favourite players
+Tennis Data Rebase is a fun project that allows the user to contrast and compare the match-play data of their favourite players.
 The tools are a mysql database and python. I have also used excel - it definitely works well.
 
 Current code and csv samples include Roger Federer's 2003 wimbledon scores and the 2023 davis cup match scores. 
