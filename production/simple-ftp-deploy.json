@@ -1,0 +1,25 @@
+```json
+{
+    "host": "149.28.47.80",
+    "port": 5000,
+    "username": "root",
+    "password": "V,7tb@yb$KcepXY",
+    "rootDirectory": "/",
+    "ignoredFilenames": ["example.py", "anotherFilename.json"],
+    "ignoredExtensions": [".ignore", ".txt"],
+    "ignoredFolders": ["ignore", "IGNORE"],
+    "reuseSessions": true,
+    "connectionTimeout": 600,
+    "passive": true,
+    "useTLS": true,
+    "disabledEvents": ["deleteFile"],
+    "noPromptEvents": ["createFolder"],
+    "triggers": [
+        {
+            "on": "save",
+            "extensions": [".css", ".js"],
+            "execute": ".simple-ftp-deploy/minifier.py"
+        }
+    ]
+}
+```
