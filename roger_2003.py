@@ -41,5 +41,5 @@ def federer_2003_data():
         federer_matches = get_federer_matches(tournament_name)
         # Convert DataFrame to a list of dictionaries for rendering
         data = federer_matches.to_dict(orient='records')
-        return render_template('federer_results.html', matches=data, tournament=tournament_name)
-    return render_template('roger_2003.html')
+        return render_template('roger_2003.html', matches=data, tournament=tournament_name)
+    
