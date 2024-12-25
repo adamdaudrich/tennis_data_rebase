@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roger Federer's Wimbledon 2003</title>
+</head>
+<body>
+    <h1>Roger Federer's 2003 Season </h1>
+
+    {% if matches %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Tournament</th>
+                    <th>Score</th>
+                    <th>Winner First Name</th>
+                    <th>Winner Last Name</th>
+                    <th>Loser First Name</th>
+                    <th>Loser Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for match in matches %}
+                    <tr>
+                        <td>{{ match['tourney_name'] }}</td>
+                        <td>{{ match['score'] }}</td>
+                        <td>{{ match['w_fname'] }}</td>
+                        <td>{{ match['w_lname'] }}</td>
+                        <td>{{ match['l_fname'] }}</td>
+                        <td>{{ match['l_lname'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No matches found.</p>
+    {% endif %}
+</body>
+</html>
+
