@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tournament Input</title>
+</head>
+<body>
+    <h1>Please type a player that you like</h1>
+    <form action="/" method="POST">
+        <label for="string">Enter Player name:</label>
+        <input type="text" id="player" name="player" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if string %}
+    <p>The player you submitted is: {{ string }}</p>
+    {% endif %}
+</body>
+</html>
+
