@@ -1,45 +1,82 @@
-#import Flask object from flask
-from flask import Flask, render_template
-#function that comes with flask
+from flask import Flask, render_template, request
+import pandas as pd
 
+#function that comes with flask
 #instatiate Flask object and assign to__ name__ variable
 app = Flask(__name__)
 
-#whenever anyone goes to our ip address (maybe with a port and slash... execute the following
-
-
+#pass players array thdo flask app.route want a function namerough 'player' variable in index.html
 @app.route('/')
 def index():
     players = ['Ivan Lendl','Andre Agassi', 'Roger Federer']
     return render_template('index.html', player=players)
-    #this will pass in all names in players array through 'player' variable in the html file
 
-    #render templates takes a template file (like an html) and processes it using Jinja templating engine. You can pass variables to the template. it helps separate the application logic from the presentation layer. You store it in 'templates' folder of your flask app. 
 
+#Route for dynamic player pages
+#if federer chosen, go to tournament_input.html
 @app.route('/player/<p>')
 def player(p):
-    #Route for dynamic player pages
+
     if p == "Roger Federer":
-
-    # Render the HTML template with the input
-        return render_template('tournament_input.hmtl', player = p)
-
+        return render_template('tournament_input.html', player = p)
     else:
         return "I am " + str(p)
 
-@app.route('/federer_stats', methods=['POST'])
+input_file_path = r'~/venv/tennis_data_rebase_venv/tennis_data_rebase/tennis_atp/atp_matches_2003.csv'
 
-def federer_stats():
-    tournament_name = request.form['tournament']
-    federer_matches = get_federer_matches()
-    filtered_data = federer_matches[federer_matches['tourney_name'].str.lower() == tournament_name.lower()]
 
-    if not filtered_data:
-        return render_template('no_data.html', tournament=tournament_name)
+
+def get_federer_matches(str = None):
+    # Load the data
+    df = pd.read_csv(input_file_path, encoding='utf-8')
+
+    # Extract first and last names
+    df[['w_fname', 'w_lname']] = df['winner_name'].str.split(' ',n=1, expand=True)
+    df[['l_fname', 'l_lname']] = df['loser_name'].str.split(' ', n=1, expand=True)
     
-    return render_templates('roger_2003.html', matches = filtered_data, tournament=tournament_name)
+    #normalize tourney_name to lowercase
+    df['tourney_name'] = df['tourney_name'].str.lower()
+    
+    # Filters for Roger Federer's won and lost games
+    federer_matches = df[
+    (((df['w_fname'] == 'Roger') & (df['w_lname'] == 'Federer')) |
+    ((df['l_fname'] == 'Roger') & (df['l_lname'] == 'Federer'))) ]
+
+    
+    if tournament_name:
+
+        #Filters for Roger Federer's matches
+        federer_matches = federer_matches[federer_matches['tourney_name'].str.contains(tournament_name.lower())]
+        
+        #select required columns
+        filtered_matches = federer_matches[['tourney_name', 'score', 'w_fname', 'w_lname', 'l_fname', 'l_lname']]
+        return filtered_matches
+
+
+#the post comes back
+@app.route('/player/Roger Federer', methods=['GET', 'POST'])
+
+def federer_2003():
+    
+    if request.method == 'GET':
+        return redirect('/')
+    
+    # Handle POST
+    tournament_name = request.form.get('tournament')
+    print(f"Tournament name received: {tournament_name}")
+
+
+    federer_matches = get_federer_matches(tournament_name)
+    data = federer_matches.to_dict(orient='records')
+    return render_template('roger_2003.html', matches=data, tournament=tournament_name)
+
 
 #if we want to run this locally, test for development purposes
 if __name__ == "__main__":
     #run the app, #default port for flask, 5000
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="127.0.0.1", port=5000, debug = True)
+
+
+    # with app.app_context():
+    #     for rule in app.url_map.iter_rules():
+    #         print(f"Endpoint: {rule.endpoint}, URL: {rule.rule}")

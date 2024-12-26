@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Roger Federer 2003</title>
+    <title>Tournament input</title>
 </head>
 <body>
-    <h1>Please enter a tournament {{ player }}</h1>
-    <form action="{{ url_for('federer_stats') }}" method="POST">
-        <label for="tournament">Enter Tournament Name:</label>
-        <input type="text" id="tournament" name="tournament" required>
-        <button type="submit">Submit</button>
-    </form>
-</body>
-</html>
+    <h1>Please enter a tournament for {{ player }}</h1>
+<form action="{{ url_for('federer_2003') }}" method="POST">
+    <label for="tournament">Enter Tournament Name:</label>
+    <input type="text" id="tournament" name="tournament" required>
+    <button type="submit">Submit</button>
+</form>
+</body> 
+</html> 
 
