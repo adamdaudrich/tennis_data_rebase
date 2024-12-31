@@ -1,53 +1,37 @@
-import regex
-import os
 import pandas as pd
+from rapidfuzz import fuzz
+from tennis_pipeline import read_csv_atp_1991_present
 
-file_path = "tennis_atp/atp_players.csv"
-file_path = os.path.expanduser(file_path)
+# Load the data
+directory_path = 'tennis_atp/1991_present'
+df = read_csv_atp_1991_present(directory_path)
 
-
-if os.path.exists(file_path) and os.path.isfile(file_path):
-    print("CSV file successfully loaded!")
-else:
-    print(f"Error: File path is incorrect or the file does not exist: {file_path}")
-    
-atp_players = pd.read_csv(file_path, encoding='utf-8')
-print(atp_players)
-
-
-
-def search_with_regex_fuzzy(file_path, search_name, max_errors=1):
+# Define the fuzzy filter function
+def fuzzy_filter_names(df, columns, name_to_match, threshold=80):
     """
-    Searches for names in a CSV file using regex with fuzzy matching.
+    Returns a unique list of names from specified columns that fuzzy match a given name.
 
     Parameters:
-        file_path (str): Path to the CSV file.
-        search_name (str): Name to search for.
-        max_errors (int): Maximum allowed errors (insertions, deletions, substitutions).
+        df (pd.DataFrame): The DataFrame to filter.
+        columns (list of str): The columns to search for the name.
+        name_to_match (str): The name to match against the columns.
+        threshold (int): The similarity threshold (default is 80).
 
     Returns:
-        list: A list of matching player names (first and last).
+        list: A sorted, unique list of matching names.
     """
+    matching_names = set()  # Use a set to ensure uniqueness
+    for column in columns:
+        matches = df[column].apply(lambda x: fuzz.partial_ratio(x, name_to_match) >= threshold)
+        matching_names.update(df.loc[matches, column])
+    return sorted(matching_names)  # Return sorted list for readability
 
-    # Load the CSV file
+# Player name to match
+player_1 = "agssi"
+threshold = 75
 
+# Get unique names from both 'winner_name' and 'loser_name' columns
+matching_names = fuzzy_filter_names(df, ['winner_name', 'loser_name'], player_1, threshold)
 
-    return atp_players
-#     # Ensure the relevant columns exist
-#     if 'name_first' not in atp_players.columns or 'name_last' not in atp_players.columns:
-#         raise ValueError("The CSV file must contain 'name_first' and 'name_last' columns.")
-
-#     # Compile regex with fuzzy matching
-#     pattern = regex.compile(f"({search_name}){{e<={max_errors}}}", regex.IGNORECASE)
-
-#     # Find matches
-#     matches = []
-#     for _, row in atp_players.iterrows():
-#         if regex.search(pattern, str(row['name_first'])) or regex.search(pattern, str(row['name_last'])):
-#             matches.append(f"{row['name_first'].capitalize()} {row['name_last'].capitalize()}")
-
-#     return matches
-
-# search_name = "federer"
-# matches = search_with_regex_fuzzy(file_path, search_name, max_errors=2)
-# print(f"Matches for '{search_name}': {matches}")
+# Print the resulting list of names
+print(matching_names)
