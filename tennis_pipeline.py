@@ -22,12 +22,13 @@ def read_csv_atp_1991_present(directory_path: str):
     
     return combined_df
 
-# Example usage
-directory_path = 'tennis_atp/1991_present'  # Set your directory path here
-df = read_csv_atp_1991_present(directory_path)
+# Example usages
 
-print(df.shape)
-print(df.info())
+# directory_path = 'tennis_atp/1991_present'  # Set your directory path here
+# df = read_csv_atp_1991_present(directory_path)
+
+# print(df.shape)
+# print(df.info())
 # pd.set_option('display.max_columns', 7)
 
 # print(df.loc[[0,1],['tourney_date','winner_name','loser_name', 'score', 'w_ace']])

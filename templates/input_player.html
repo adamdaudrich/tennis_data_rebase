@@ -5,16 +5,61 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
 </head>
 <body>
-    <h1>Please type in a player that you like</h1>
-    <form action="/" method="POST">
-        <label for="string">Enter Player name:</label>
-        <input type="text" id="player" name="player" required>
-        <button type="submit">Submit</button>
+    <h1>Tennis Data Rebase is a fun project that allows the user to compare their favourite players in various ways. Here's a sample of how it works</h1>
+    <br>
+    <h1>Player vs Opponent</h1>
+    <br>
+    <form action="/" method="POST" autocomplete="off">
+        <label for="entry_1">Enter a player's name:</label>
+        <input type="text" id="entry_1" name="entry_1">  
+        <br>
+            {% if entry_1_matches %}
+            <label for="entry_1_match">Confirm your selection :</label>
+            <select id="entry_1_match" name="entry_1_match" autocomplete="off">
+                <option value=""selected>Select name</option>.
+                {% for match in entry_1_matches %}
+                <option value="{{ match }}">{{ match }} </option>
+                {% endfor %}
+            </select>
+        <br>
+        {% endif %}
+        <br>
+        <label for="entry_2">Enter the opponent's name:</label>
+        <input type="text" id="entry_2" name="entry_2">
+        <br>
+            {% if entry_2_matches %}
+            <label for="entry_2_match">Confirm your selection:</label>
+            <select id="entry_2_match" name="entry_2_match" autocomplete="off">
+                <option value =""selected>Select name</option>
+                {% for match in entry_2_matches %}
+                <option value="{{ match }}">{{ match }}</option>
+                {% endfor %}
+            </select>
+        <br>
+        {% endif %}  
+        <br>
+        <label for="year">Enter a year you think they both played in:</label>
+        <input type="text" id="year" name="year">
+        <br>  
+
+    <button type="submit">Submit</button/>
     </form>
 
-    {% if player %}
-    <p>The player you submitted is: {{ player }}</p>
+    {% if result %}
+        <p>Year: {{ result.year }}</p>
+        {% if selected_entry_1_match %}
+        <p>Selection for First Player: {{ selected_entry_1_match }}</p>
+        {% endif %}
+
+        {% if selected_entry_2_match %}
+        <p>Selection for Opponent: {{ selected_entry_2_match }}</p>
+        {% endif %}
     {% endif %}
+
+    <button type="reset">Reset</button>
+
 </body>
 </html>
+
+
 
