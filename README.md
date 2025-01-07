@@ -1,12 +1,14 @@
 Tennis Data Rebase is a fun project that allows the user to contrast and compare the match-play data of their favourite players.
-The tools are a mysql database and python. I have also used excel - it definitely works well.
+The current dataset consists of .sv files. I use python and flask web framework with simply html and css. But -  I have also used excel for basic data analysis - also fun.
 
-Current code and csv samples include Roger Federer's 2003 wimbledon scores and the 2023 davis cup match scores. 
 
 Future ideas: 
-- compare Andre Agassi's serve data from 1995 against 1999 on clay courts, and an analysis of how his game changed in that pivotal period in his career.
-- Come up with a more contemporary analysis of serve effectiveness using the basic serve data
-- create a front end so that the user can query and see visualizations of the stats
+- fuzzy matching names
+- query player 1 vs player 2 scores for a given year
+- add wta 
+- Come up with a more contemporary analysis of serve effectiveness
+- do  basic regression analysis to see if data comparisons are signifcant
+  visualizations of the stats
 - short youtube videos that tell a story behind the data
 
 About the data set:
