@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Input</title>
+</head>
+<body>
+    <h1>Please enter text</h1>
+    <form action="/" method="POST">
+        <label for="string">Enter Text</label>
+        <input type="text" id="string" name="string" required>
+        <button type="submit">Submit</button>
+    </form>
+
+
+    {% if string %}
+    <p>The string you submitted is: {{ string }}</p>
+    {% endif %}
+</body>
+</html>

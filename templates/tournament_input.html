@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tournament input</title>
+    <title>Tournament Input</title>
 </head>
 <body>
     <h1>Please enter a tournament for {{ player }}</h1>
-<form action="{{ url_for('federer_2003') }}" method="POST">
-    <label for="tournament">Enter Tournament Name:</label>
-    <input type="text" id="tournament" name="tournament" required>
-    <button type="submit">Submit</button>
-</form>
-</body> 
-</html> 
+    <form action="/player/Roger Federer" method="POST">
+        <label for="string">Enter Tournament Name:</label>
+        <input type="text" id="string" name="string" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if string %}
+    <p>The tournament you submitted is: {{ string }}</p>
+    {% endif %}
+</body>
+</html>
 

@@ -4,17 +4,13 @@
         <title>Welcome</title> 
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
       </head> 
-      <body> 
-        <!-- Your HTML content here --> 
-      </body> 
-    </html> <html>
         <body>
-		<h1>Tennis Data Rebase is a fun project that allows the user to contrast and compare the match-play data of their favourite players.</h1>
+		<h1>Tennis Data Rebase is a fun project that allows the user to compare their favourite players in various ways.</h1>
 		<h1>Here's a sample of how it works. Please click on a player from the following list:</h1>
-                <u1>
+              <u1>
                 {% for p in player %}
                 <li><a href="/player/{{ p }}">{{ p }}</a></li>
                 {% endfor %}
-                </ul>
+              </ul>
         </body>
     </html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tournament Input</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+</head>
+<body>
+    <h1>Please type in a player that you like</h1>
+    <form action="/" method="POST">
+        <label for="string">Enter Player name:</label>
+        <input type="text" id="player" name="player" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if player %}
+    <p>The player you submitted is: {{ player }}</p>
+    {% endif %}
+</body>
+</html>
+
