@@ -1,5 +1,4 @@
 input_file_path = r'C:\Users\adamd\Documents\JEFF SACKMAN ATP\tennis_atp-master\tennis_atp-master\rebase_source\atp_matches_2003.csv'
-output_file_path = r'C:\Users\adamd\Documents\JEFF SACKMAN ATP\tennis_atp-master\tennis_atp-master\rebase_cleaned\roger_wimbledon_2003.csv'
 
 with open(input_file_path, 'r', encoding = 'utf-8') as infile, open(output_file_path, 'w', encoding='utf-8') as outfile:
     outfile.write('tourney_name, score, w_fname, w_lname, l_fname, l_lname\n')

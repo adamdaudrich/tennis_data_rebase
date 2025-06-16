@@ -1,0 +1,20 @@
+    <form action="/get_tournament" method="POST">
+        <div class="form-group">
+            <label for="player">please select one or more tournaments:</label>
+            <input type="text" name="tournaments" id="tournaments" 
+            list="playerList" required>
+            <datalist id="tournamentList">
+                {% for t in all_tournaments %}
+                <option value="{{ t }}">
+                {% endfor %}
+            </datalist>
+        </div>
+        <button type="submit" class="btn">add tournament</button>
+    </form>
+    
+    <h3>selected tournaments:</h3>
+    <ul class="player-list">
+        {% for st in selected_tournaments %}
+        <li>{{ st }}</li>
+        {% endfor %}
+    </ul>

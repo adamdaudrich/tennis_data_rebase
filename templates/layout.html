@@ -1,0 +1,27 @@
+<!-- templates/layout.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}rebase.tennis{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/players">Players</a>
+            <a href="/compare">Compare</a>
+        </nav>
+    </header>
+    
+    <main>
+        {% block content %}
+        <!-- This will be replaced by content from child templates -->
+        {% endblock %}
+    </main>
+    
+    <footer>
+        <p>© 2025 rebase.tennis</p>
+    </footer>
+</body>
+</html>

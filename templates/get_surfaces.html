@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}get_surfaces{% endblock %}
+
+{% block content %}
+    <h1>Please select one or more surfaces</h1>
+    <form>
+        <label for="surfaces">Select court surfaces (hold Ctrl/Cmd to select multiple):</label>
+        <select id="surfaces" name="surfaces[]" multiple size="4" style="width: 200px;">
+            <option value="carpet">Carpet</option>
+            <option value="clay">Clay</option>
+            <option value="grass">Grass</option>
+            <option value="hard">Hard</option>
+        </select>
+    </form>
+{% endblock %}       
+
+
+
