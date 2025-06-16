@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Read CSV</title>
+        <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <input type="file" id="file-input" accept=".csv">
+        <button id="btn-upload-csv">Read CSV</button>
+        <!-- Error message container -->
+        <div id="error-container" class="error-message" style="display: none;">
+            <!-- Error messages will appear here -->
+        </div>
+        <div id= "table-container">
+            <!---table will be created here dynamically-->
+        </div>
+        <script src="csv_POC.js"></script>
+    </body>
+</html>

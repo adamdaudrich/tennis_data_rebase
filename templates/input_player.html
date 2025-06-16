@@ -1,20 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Tournament Input</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+    <title>Data Input</title>
+    <link rel="stylesheet" 
+    href="{{ url_for('static', filename='styles.css') }}"> 
 </head>
 <body>
-    <h1>Please type in a player that you like</h1>
-    <form action="/" method="POST">
-        <label for="string">Enter Player name:</label>
-        <input type="text" id="player" name="player" required>
-        <button type="submit">Submit</button>
-    </form>
+    <div class ="container">
+        <div class="text-content">    
+            <h1>Let's look at some ATP Tennis Data</h1>
+            <form action="/" method="POST"><body>
+                <h2>Player Selection</h2>
 
-    {% if player %}
-    <p>The player you submitted is: {{ player }}</p>
-    {% endif %}
+                <div>
+                    <label for="string">Enter a year between 1968 and 2024</label>
+                    <input type="number" id="year" name="year" min="1968" 
+                    max= "2023" required>      
+                </div>
+
+                <div>
+                    <label for="string">Enter the first player's name:</label>
+                    <input type="text" id="player1" name="player1" 
+                    list="playerList"
+                    value="{{ session.get('player1', '') }}" required><br>
+                </div>
+        
+                <datalist id="playerList">
+                    {% for player in all_players %}
+                    <option value="{{ player }}">
+                    {% endfor %}
+                </datalist>
+
+                <div>
+                    <label for="string">Enter the second player's name:</label>
+                    <input type="text" id="player2" name="player2" 
+                    list= "playerList" value="{{ session.get('player2, '') }}" 
+                    required><br>
+                </div>
+                
+                <button type="submit">Submit</button>
+            </form>
+
+
+    <div>
+        <h2>Stored tennis data entries:</h2>
+        {% if session.get('player1') and session.get('player2') and 
+            session.get('year') %}  
+            <p>Player 1: {{ session.get('player1') }}</p>
+            <p>Player 2: {{ session.get('player2') }}</p>
+            <p>Year: {{ session.get('year') }}</p>
+        {% endif %}
+    </div>
+
+
 </body>
 </html>
 

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}get names{% endblock %}
+
+{% block content %}
+    <h1>get names</h1>
+    <form>
+     <form action="/get_names" method="POST">
+        <div class="form-group">
+            <label for="player">Enter a player's name:</label>
+            <input type="text" name="name" id="name" list="maleNames" required>
+            <datalist id="maleNames">
+                {% for name in male_full_names %}
+                <option value="{{ name }}">
+                {% endfor %}
+            </datalist>
+        </div>
+        <button type="submit" class="btn">add name</button>
+    </form>
+    
+    <h3>selected names:</h3>
+    <ol class="name-list">
+        {% for player in  %}
+        <li>{{ player }}</li>
+        {% endfor %}
+    </ol>
+
+    </form>
+{% endblock %}       

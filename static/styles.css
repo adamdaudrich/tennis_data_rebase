@@ -45,3 +45,51 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+
+/* Your custom styles after the reset */
+h1 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.25em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1.1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+h5, h6 {
+  font-size: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+/* Add other custom styles as needed */
+
+/* Container for page content */
+.container {
+  max-width: 1200px; /* Maximum width of content */
+  width: 90%;        /* Use 90% of viewport width */
+  margin: 0 auto;    /* Center the container */
+  padding: 10px;     /* Add some padding inside the container */
+}
+
+/* For text content specifically */
+.text-content {
+  max-width: 820px;  /* Optimal reading width for text */
+  line-height: 1.6;  /* Improves readability */
+}
