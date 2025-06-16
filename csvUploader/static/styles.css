@@ -1,0 +1,295 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+button {
+  display: inline-block;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.25);
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(102, 126, 234, 0.2);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+}
+
+/* Optional: Add subtle shine effect */
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+.file-input-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+label:hover {
+  background-color: #0056b3;
+}
+
+/* Enhanced Table Container */
+.table-container {
+  height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 20px auto;
+  max-width: 100%;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: relative;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.csv-table-wrapper {
+  height: 400px;
+  overflow-y: auto;
+}
+
+/* Enhanced Custom scrollbar */
+.csv-table-wrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+.csv-table-wrapper::-webkit-scrollbar-track {
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.csv-table-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6c757d, #495057);
+  border-radius: 5px;
+  border: 2px solid #f8f9fa;
+}
+
+.csv-table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #495057, #343a40);
+}
+
+/* Enhanced Table */
+.csv-table {
+  border-collapse: collapse;
+  max-height: 90vh;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Beautiful Header */
+.csv-table th {
+  position: sticky;
+  top: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 16px 12px;
+  text-align: left;
+  font-weight: 600;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(255,255,255,0.2);
+}
+
+.csv-table th:last-child {
+  border-right: none;
+}
+
+/* Enhanced Table Cells */
+.csv-table td {
+  border: 1px solid #e9ecef;
+  padding: 14px 12px;
+  text-align: left;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  word-wrap: break-word;
+  max-width: 200px;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+}
+
+/* Enhanced Row Styling */
+.csv-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.csv-table tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.csv-table tr:hover {
+  background-color: #e3f2fd !important;
+  transform: scale(1.001);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.csv-table tr:hover td {
+  border-color: #bbdefb;
+}
+
+/* Special styling for Study ID column (if needed) */
+.csv-table td:last-child {
+  background-color: #fff3e0;
+  font-weight: 600;
+  color: #e65100;
+}
+
+.csv-table tr:nth-child(even) td:last-child {
+  background-color: #ffe0b2;
+}
+
+.csv-table tr:hover td:last-child {
+  background-color: #ffcc02 !important;
+  color: #bf360c;
+}
+
+/* Loading animation placeholder */
+.table-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Add subtle animation on table appearance */
+.csv-table {
+  animation: fadeInTable 0.3s ease-in;
+}
+
+@keyframes fadeInTable {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Enhanced focus styles for accessibility */
+.csv-table th:focus,
+.csv-table td:focus {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .table-container {
+    margin: 10px;
+    border-radius: 8px;
+  }
+  
+  .csv-table th,
+  .csv-table td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+  
+  .csv-table td {
+    max-width: 150px;
+  }
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px auto;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* Hide table initially if needed */
+.hidden {
+  display: none;
+}
+
+#text-display {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 400;
+  margin: 10px auto;
+  margin-bottom: 20px;
+  max-width: 500px;
+  text-align: center;
+  line-height: 1.5;
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.15);
+}
