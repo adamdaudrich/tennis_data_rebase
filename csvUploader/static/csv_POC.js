@@ -1,13 +1,44 @@
-const btn_upload = document.getElementById('btn-upload-csv');
+const btn_read = document.getElementById('btn-read-csv');
 const fileInput = document.getElementById('file-input');
 
+/**
+ * Tells the user to refer to table to get the expected header order
+ * @param {file}
+ * @returns {void}
+ */
+
 function csvInstructions(){
-    const getTxt = document.getElementById('text-display').innerHTML = 
-    'Use this table as a reference: <br>Place your headers in the' +
-    ' order shown.';
+    //could be more flexible by declaring a txtDisplay var
+    document.getElementById('text-display').innerHTML = 
+    'Please put your headers in the following order :'
+}
+
+/**
+ * Fades out the instructions after a CSV is successfully read in
+ * @param {void}
+ * @returns {void}
+ */
+
+function fadeOutInstructions() {
+    const textDisplay = document.getElementById('text-display');
+    textDisplay.style.opacity = '0';
+    textDisplay.style.transition = 'opacity 0.3s ease';
+    
+    // Remove it completely after fade
+    setTimeout(() => {
+        textDisplay.style.display = 'none';
+    }, 300);
 }
 
 csvInstructions()
+
+/**
+ * A static table header row that demonstrates the expected order of the 
+ * headers. 
+ * 
+ * @param {void}
+ * @returns {}
+ */
 
 function createStaticTable() {
     
@@ -38,22 +69,6 @@ function createStaticTable() {
     
     // Create body with sample data
     const tbody = document.createElement('tbody');
-    const sampleData = [
-        ['1990-05-15', 'M', 'Site A', 'Sample Project A', 'John', 'Michael', 'Smith', 'New York', 'SAMPLE_ID_100101_P'],
-        ['1985-12-03', 'F', 'Site B', 'Sample Project B', 'Sarah', 'Ann', 'Johnson', 'Los Angeles', 'SAMPLE_ID_100102_P'],
-        ['1992-08-22', 'M', 'Site C', 'Sample Project C', 'David', 'James', 'Brown', 'Chicago', 'SAMPLE_ID_100103_P']
-    ];
-    
-    sampleData.forEach(rowData => {
-        const row = document.createElement('tr');
-        rowData.forEach(cellData => {
-            const td = document.createElement('td');
-            td.textContent = cellData;
-            row.appendChild(td);
-        });
-        tbody.appendChild(row);
-    });
-    
     table.appendChild(tbody);
 
     //Clear container and add table
@@ -62,10 +77,20 @@ function createStaticTable() {
     tableContainer.appendChild(wrapper);
 }
 
-createStaticTable()
 
+function clearPreviousData() {
+    console.log('clearPreviousData');
 
-btn_upload.addEventListener('click', function(){
+    const tbody = document.querySelector('.csv-table tbody');
+    if (tbody) {
+        tbody.innerHTML = '';
+    }
+    hideError();
+}
+
+createStaticTable();
+
+btn_read.addEventListener('click', function(){
     fileInput.click();
 });
 fileInput.addEventListener('change', handleFileUpload);
@@ -88,10 +113,12 @@ function hideError(){
 */
 
 
-
 function handleFileUpload(e) {
-    const file = e.target.files[0]; 
+    const file = e.target.files[0];
+    fadeOutInstructions();
+
     if (!isCSV(file.name)) return;
+    clearPreviousData(); 
 
     Papa.parse(file, { 
         header: true, // returns an array of arrays
@@ -99,12 +126,12 @@ function handleFileUpload(e) {
         delimiter:',',
         trimHeaders: true,
         complete: function(results){
-            //use papaParse to handle errors
+            //use papaParse results.errors array to handle some errors
             handleParseErrors(results);
             //handle errors that papaParse doesn't handle 
             if (!hasData(results)) return;
             if (!checkFields(results))return; 
-            if (!replaceHeaders(results)) return;
+            //if (!replaceHeaders(results)) return;
             //if (!reorderColumns(results)) return;
             // //validateDateFormat()
             createTable(results);
@@ -134,7 +161,6 @@ function handleParseErrors(results) {
 
     // when a quote is started but not finished ex: ("Mexico city, Mexico)
     const missingQuotesErrors = quoteErrors.filter(err => err.code === 'MissingQuotes');
-
 
     const undetectableDelimiterErrors = delimiterErrors.filter(err => err.code === 'UndetectableDelimiter');
 
@@ -212,12 +238,12 @@ function handleParseErrors(results) {
 function isCSV(file){     
     // file also needs to have an extension   
     if (!file.toLowerCase().endsWith('.csv')) {
-        const errorMsg = 'The file extension is not .csv';
+        const errorMsg = 'Error: The file extension is not .csv';
         console.error(errorMsg);
         showError(errorMsg);
         return false;
     }
-    console.log('is CSV : The file extension is .csv');
+    console.log('isCSV check passed');
     hideError();
     return true;
 }
@@ -230,11 +256,12 @@ function isCSV(file){
 
 function hasData(results) {
     if (!results.data || results.data.length === 0) {
-        const errorMsg1 = 'No data found in CSV';
+        const errorMsg1 = 'Error: No data found in CSV';
         showError(errorMsg1);
+        console.error('hasData check failed');
         return false;
     }
-        console.log('hasData : Your CSV contains data')
+        console.log('hasData check passed');
         return true;
 }   
 
@@ -244,7 +271,6 @@ function checkFields(results){
     const fieldNames = results.meta.fields;
     const emptyFields = [];
 
-
     fieldNames.forEach((field, index) => {
         if (field === ''){
             emptyFields.push(index + 1);
@@ -252,21 +278,22 @@ function checkFields(results){
     });
     
     if (emptyFields.length > 0){
-        let errorMsg = 'Missing values at field numbers: ' 
-            + emptyFields.join(', ') + '<br>AllFields: ' 
-            + fieldNames.join(', ');
-            showError(errorMsg);
-            return false
-        }
+        let errorMsg = 'Error: Missing values at field number: ' 
+            + emptyFields.join(', '); 
+        showError(errorMsg);
+        return false;
+    }
 
     const fieldCount = Object.keys(results.data[0]).length; 
     if (fieldCount !== 9) {
-        let errorMsg = 'Your .csv file has ' 
-        + fieldCount + ' fields instead of 9:<br>' 
+        let errorMsg = 'Error: Your .csv file has ' 
+            + fieldCount + ' fields instead of 9.<br> Please refer to the table below.' 
         showError(errorMsg);
+        console.log('checkFields failed')
         return false;
-        }
-    console.log('checkFields');
+    }
+
+    console.log('checkFields passed');
     hideError();
     return true;
 }

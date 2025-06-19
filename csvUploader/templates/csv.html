@@ -7,7 +7,9 @@
     </head>
     <body>
         <input type="file" id="file-input" accept=".csv">
-        <button id="btn-upload-csv">Read CSV</button>
+        <button id="btn-read-csv">Read CSV</button>
+        <div id="text-display">
+        </div>
         <!-- Error message container -->
         <div id="error-container" class="error-message" style="display: none;">
             <!-- Error messages will appear here -->
@@ -15,7 +17,7 @@
         <div id= "table-container">
             <!---table will be created here dynamically-->
         </div>
-        <div id="text-display"></div>
+
         
         <script src="{{ url_for('static', filename='csv_POC.js') }}"></script>
     </body>
